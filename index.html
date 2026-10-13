@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baran Office | Unified Smart Workspace — Docs, Sheets, Slides</title>
+<meta name="description" content="One fluid document: text blocks, live spreadsheets, charts and slides with AI co-pilot. Free.">
+<link rel="canonical" href="https://aoodiakdiro0001-ops.github.io/baranoffice/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0b0e17">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Baran Office | Content Ecosystem">
+<meta property="og:description" content="Write, calculate, present — in one canvas with live sync + AI.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Arial,sans-serif}
+:root{--bg:#0b0e17;--panel:#141b31;--line:#2a3557;--grn:#34d399;--blu:#60a5fa;--gold:#fbbf24;--acc:#f472b6;--txt:#e3e9f5;--mut:#8b98b8}
+body{background:var(--bg);color:var(--txt)}
+body.light{--bg:#eef1f6;--panel:#ffffff;--line:#d4dbe7;--txt:#1c2333;--mut:#5b6b85}
+header{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);flex-wrap:wrap;background:var(--panel)}
+.logo{font-size:20px;font-weight:900;color:var(--acc)}
+.logo small{display:block;font-size:10px;color:var(--mut);font-weight:400}
+#docTitle{background:transparent;border:1px solid transparent;color:var(--txt);font-size:15px;font-weight:700;padding:6px 10px;border-radius:8px;min-width:130px;max-width:240px}
+#docTitle:hover{border-color:var(--line)}
+.hbtn{background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:7px 12px;cursor:pointer;font-size:12.5px;font-weight:700}
+.hbtn:hover{border-color:var(--acc)}
+#langSel{margin-left:auto;background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:12px;padding:6px 8px;font-size:12px}
+#ctxbar{display:flex;gap:6px;flex-wrap:wrap;padding:8px 14px;background:var(--panel);border-bottom:1px solid var(--line);align-items:center;min-height:46px}
+#ctxbar button,#ctxbar select,#ctxbar input{background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12.5px}
+#ctxbar button:hover{border-color:var(--acc)}
+#ctxbar .mode{font-size:11px;font-weight:900;color:var(--acc);border:1px solid var(--acc);border-radius:12px;padding:3px 10px}
+#ctxbar .sep{width:1px;height:20px;background:var(--line)}
+#fxwrap{display:none;gap:8px;padding:8px 14px;background:var(--panel);border-bottom:1px solid var(--line);align-items:center}
+#fxwrap.show{display:flex}
+#fxBar{flex:1;background:var(--bg);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:7px 10px;font-size:13px;font-family:Consolas,monospace}
+.wrap{display:flex;max-width:1240px;margin:0 auto;gap:14px;padding:14px;align-items:flex-start}
+aside.side{width:215px;flex-shrink:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;font-size:13px;max-height:80vh;overflow:auto}
+aside.side h4{color:var(--acc);margin:8px 0;font-size:12.5px}
+.docitem{padding:8px 10px;border-radius:10px;cursor:pointer;margin:4px 0;border:1px solid transparent;font-size:12.5px}
+.docitem.on{border-color:var(--acc)}
+.blockbar{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.blockbar button{background:var(--bg);color:var(--txt);border:1px dashed var(--line);border-radius:10px;padding:8px 12px;cursor:pointer;font-size:12px}
+.blockbar button:hover{border-color:var(--grn);color:var(--grn)}
+main.cv{flex:1;min-width:0}
+.block{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:10px 0;overflow:hidden}
+.block.sel{border-color:var(--acc)}
+.bhead{display:flex;gap:8px;align-items:center;background:var(--bg);padding:7px 12px;font-size:12px;color:var(--mut)}
+.bhead .kind{font-weight:900;color:var(--acc)}
+.bhead .sp{flex:1}
+.bhead button{background:none;border:none;color:var(--mut);cursor:pointer;font-size:13px;padding:2px 6px}
+.bhead button:hover{color:var(--red,#f87171)}
+.bbody{padding:14px 16px}
+.txtedit{background:#fff;color:#161616;border-radius:8px;padding:16px 20px;min-height:90px;outline:none;line-height:1.8;font-size:14.5px}
+body.light .txtedit{background:#fff}
+.bindbar{font-size:12px;color:var(--mut);margin-top:8px;line-height:2}
+.bindbar b{color:var(--grn);font-family:Consolas,monospace}
+table.mini{border-collapse:collapse;font-size:12.5px}
+table.mini th,table.mini td{border:1px solid var(--line);min-width:74px}
+table.mini th{background:var(--bg);color:var(--mut);padding:4px;font-size:11px}
+table.mini td{padding:0;height:26px}
+table.mini td .cv{padding:3px 7px;min-height:26px;white-space:nowrap;overflow:hidden;display:block}
+table.mini td.sel{background:#1d4ed833}
+table.mini td.anchor{outline:2px solid var(--grn);outline-offset:-2px}
+table.mini td input.ce{width:100%;box-sizing:border-box;font-size:12.5px;padding:3px 7px;border:2px solid var(--grn);outline:none;background:var(--bg);color:var(--txt)}
+.slidecard{background:#fff;color:#161616;border-radius:8px;padding:26px 30px;aspect-ratio:16/8;overflow:auto}
+.slidecard h2{font-size:22px;margin-bottom:8px}
+.slidecard ul{margin-left:20px;line-height:1.9}
+canvas.chart{width:100%;max-width:560px;background:#0b0e17;border-radius:8px}
+.airow{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+#aiIn{flex:1;min-width:220px;background:var(--bg);border:1px solid var(--gold);color:var(--txt);border-radius:12px;padding:11px;font-size:13.5px}
+.abtn{background:transparent;color:var(--gold);border:1px solid var(--gold);border-radius:10px;padding:9px 18px;cursor:pointer;font-weight:800;font-size:13px}
+.abtn:hover{background:var(--gold);color:#231a03}
+#aiOut{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13px;max-height:220px;overflow:auto;white-space:pre-wrap;line-height:1.7}
+.statusbar{display:flex;gap:14px;font-size:12px;color:var(--mut);padding:8px 4px;flex-wrap:wrap}
+#present{position:fixed;inset:0;background:#000;z-index:200;display:none;align-items:center;justify-content:center}
+#present.show{display:flex}
+#present .pslide{background:#fff;color:#111;width:min(1050px,94vw);aspect-ratio:16/9;border-radius:10px;padding:40px 50px;overflow:auto}
+#present .pnum{position:fixed;bottom:14px;right:18px;color:#888;font-size:13px}
+.donate{background:linear-gradient(135deg,#1c2547,#0e2a1d);border:1px solid var(--grn);border-radius:16px;padding:20px;text-align:center;margin:14px auto 0;font-size:13px;max-width:1100px}
+.donate .addr{background:#0b0e17;border-radius:10px;padding:10px;font-family:monospace;font-size:12px;word-break:break-all;direction:ltr;margin:6px auto;color:var(--grn);max-width:560px}
+.adslot{max-width:1100px;margin:12px auto 0;padding:0 15px;text-align:center}
+.adslot .ph{display:block;border:1px dashed var(--line);border-radius:10px;color:var(--mut);font-size:12px;padding:10px}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px 16px;border-top:1px solid var(--line);line-height:2}
+footer a{color:var(--grn)}
+#toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:12px 25px;border-radius:25px;z-index:300;display:none;font-size:14px;max-width:92vw;text-align:center}
+@media(max-width:900px){aside.side{display:none}}
+@media print{body>*{display:none!important}#printAll{display:block!important;color:#000}#printAll .pb{break-after:page}}
+#printAll{display:none}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">🌐 Baran Office<small data-i="tag"></small></div>
+<input id="docTitle" value="Untitled">
+<button class="hbtn" onclick="newDoc()" data-i="btnNew"></button>
+<button class="hbtn" onclick="undo()" data-i="btnUndo"></button>
+<button class="hbtn" onclick="dlJSON()" data-i="btnJson"></button>
+<button class="hbtn" onclick="document.getElementById('jsonF').click()" data-i="btnJsonIn"></button>
+<input type="file" id="jsonF" accept=".json,.baran" style="display:none" onchange="impJSON(this)">
+<button class="hbtn" onclick="dlHTML()" data-i="btnHtml"></button>
+<button class="hbtn" onclick="doPrint()" data-i="btnPrint"></button>
+<button class="hbtn" onclick="toggleTheme()">🌓</button>
+<button class="hbtn" onclick="startPresent()" style="border-color:var(--grn);color:var(--grn)" data-i="btnPresent"></button>
+<select id="langSel" onchange="setLang(this.value)">
+<option value="en" selected>🇬🇧 English</option><option value="tr">🇹🇷 Türkçe</option><option value="ar">🇸🇦 العربية</option>
+</select>
+</header>
+<div id="ctxbar"><span class="mode" id="ctxMode">TEXT</span><span id="ctxTools"></span></div>
+<div id="fxwrap"><span id="fxName">A1</span><input id="fxBar" placeholder="fx"></div>
+<div class="wrap">
+<aside class="side">
+<h4 data-i="docsT"></h4><div id="docList"></div>
+<button class="hbtn" style="width:100%;margin-top:6px" onclick="newDoc()">＋</button>
+<h4 data-i="tmplT" style="margin-top:12px"></h4>
+<div id="tmplList"></div>
+</aside>
+<main class="cv">
+<div class="blockbar" id="blockbar"></div>
+<div id="canvas"></div>
+<div class="statusbar"><span id="stInfo"></span><span id="stSync"></span></div>
+<div class="airow"><input id="aiIn" data-i-ph="aiPh"><button class="abtn" onclick="aiRun()" data-i="aiGo"></button></div>
+<div id="aiOut"></div>
+</main>
+</div>
+<div id="present" onclick="pNext(event)"><div class="pslide" id="pslide"></div><div class="pnum" id="pnum"></div></div>
+<div class="donate">
+<b data-i="doT"></b><br><span style="font-size:12px;color:var(--mut)" data-i="doS"></span>
+<div>₿ BTC</div><div class="addr" id="btcA"></div>
+<div>₮ USDT-TRC20</div><div class="addr" id="usdtA"></div>
+<div style="font-size:12.5px">🏦 Baran Avisat — TRY: <code dir="ltr">TR10 0001 0090 1008 4013 0050 01</code></div>
+<div style="font-size:12.5px">🏦 Baran Avisat — USD: <code dir="ltr">TR80 0001 0090 1008 4013 0050 02</code></div>
+</div>
+<div id="printAll"></div>
+<div class="adslot" id="adFoot"><span class="ph" data-i="adHere" style="display:block;border:1px dashed var(--line);border-radius:10px;color:var(--mut);font-size:12px;padding:10px"></span></div>
+<footer><span data-i="foot"></span> · by <b>Baran Avisat</b><br>📧 <a href="mailto:baranavisat@gmail.com">baranavisat@gmail.com</a> · 📞 <a href="tel:+905313263722" dir="ltr">+90 531 326 37 22</a> · <a href="https://wa.me/905313263722" target="_blank" rel="noopener">WhatsApp</a><br><a href="README.md" target="_blank">README</a> · MIT</footer>
+<div id="toast"></div>
+<script>
+const CONFIG={ads:{client:'',slot:'',carbonServe:'',carbonPlacement:''},
+pay:{btc:'bc1q8dhtdrndxsl70e97t8grydfe6pjue37zrhzf6c',usdt:'TLWdTjqqogkXNEXGiPWsGdjFP6ioycxeWW'}};
+const T={
+en:{tag:'Docs + sheets + slides, live-synced',btnNew:'＋ Doc',btnUndo:'↩ Undo',btnJson:'💾 Save',btnJsonIn:'📂 Open',btnHtml:'HTML',btnPrint:'Print',btnPresent:'▶ Present',
+docsT:'📄 Documents',tmplT:'📑 Templates',addText:'📝 Text',addSheet:'📊 Sheet',addChart:'📈 Chart',addSlide:'📽️ Slide',
+mText:'TEXT',mSheet:'SHEET',mSlide:'SLIDE',mChart:'CHART',
+aiPh:'AI command: table from text / slides from doc / summarize / report from Sheet1 / chart from Sheet1 A1:B5…',aiGo:'✨ Run',
+doT:'💚 Support Baran Office',doS:'Free forever.',
+btnCopy:'Copy',adHere:'Your ad here',foot:'Baran Office — one fluid workspace. Everything stays in your browser.',
+copied:'Copied ✅',savedL:'saved',needText:'Write something first ⚠️',dlDone:'Downloaded ✅',
+syncedL:'live sync',blocksL:'blocks',slidesL:'slides for presentation',
+tmplReport:'Monthly report',tmplBudget:'Budget plan',tmplPitch:'Pitch deck',
+fxPh:'fx',noSheets:'Add a Sheet block first ⚠️',noSlides:'No slides — generate some first ⚠️',
+sumL:'Summary',insL:'Insights',tocL:'Contents',appliedL:'Applied ✅',understoodL:'Try: “table from text”, “slides from doc”, “summarize”, “report from Sheet1”, “chart from Sheet1 A1:B4”'},
+tr:{tag:'Belgeler + tablolar + slaytlar, canlı eşzamanlı',btnNew:'＋ Belge',btnUndo:'↩ Geri',btnJson:'💾 Kaydet',btnJsonIn:'📂 Aç',btnHtml:'HTML',btnPrint:'Yazdır',btnPresent:'▶ Sun',
+docsT:'📄 Belgeler',tmplT:'📑 Şablonlar',addText:'📝 Metin',addSheet:'📊 Tablo',addChart:'📈 Grafik',addSlide:'📽️ Slayt',
+mText:'METİN',mSheet:'TABLO',mSlide:'SLAYT',mChart:'GRAFİK',
+aiPh:'YZ komutu: metinden tablo / belgeden slaytlar / özetle / Sheet1\u2019den rapor / Sheet1 A1:B4 grafiği…',aiGo:'✨ Çalıştır',
+doT:'💚 Destekle',doS:'Sonsuza dek ücretsiz.',
+btnCopy:'Kopyala',adHere:'Reklamınız burada',foot:'Baran Office — tek akışkan çalışma alanı. Her şey tarayıcıda.',
+copied:'Kopyalandı ✅',savedL:'kaydedildi',needText:'Önce bir şey yazın ⚠️',dlDone:'İndirildi ✅',
+syncedL:'canlı eşzaman',blocksL:'blok',slidesL:'sunum slaytı',
+tmplReport:'Aylık rapor',tmplBudget:'Bütçe planı',tmplPitch:'Sunum destesi',
+fxPh:'fx',noSheets:'Önce Tablo bloğu ekleyin ⚠️',noSlides:'Slayt yok — önce üretin ⚠️',
+sumL:'Özet',insL:'Öngörüler',tocL:'İçindekiler',appliedL:'Uygulandı ✅',understoodL:'Deneyin: “metinden tablo”, “belgeden slaytlar”, “özetle”, “Sheet1\u2019den rapor”'},
+ar:{tag:'مستندات وجداول وشرائح بمزامنة حية',btnNew:'＋ مستند',btnUndo:'↩ تراجع',btnJson:'💾 حفظ',btnJsonIn:'📂 فتح',btnHtml:'HTML',btnPrint:'طباعة',btnPresent:'▶ عرض',
+docsT:'📄 المستندات',tmplT:'📑 قوالب',addText:'📝 نص',addSheet:'📊 جدول',addChart:'📈 رسم',addSlide:'📽️ شريحة',
+mText:'نص',mSheet:'جدول',mSlide:'شريحة',mChart:'رسم',
+aiPh:'أمر ذكي: جدول من النص / شرائح من المستند / لخّص / تقرير من Sheet1 ...',aiGo:'✨ نفّذ',
+doT:'💚 ادعم',doS:'مجاني للأبد.',
+btnCopy:'نسخ',adHere:'مساحتك الإعلانية هنا',foot:'Baran Office — مساحة عمل موحدة. كل شيء في متصفحك.',
+copied:'تم ✅',savedL:'حُفظ',needText:'اكتب شيئاً أولاً ⚠️',dlDone:'نُزّل ✅',
+syncedL:'مزامنة حية',blocksL:'كتل',slidesL:'شرائح للعرض',
+tmplReport:'تقرير شهري',tmplBudget:'خطة ميزانية',tmplPitch:'عرض تقديمي',
+fxPh:'fx',noSheets:'أضف كتلة جدول أولاً ⚠️',noSlides:'لا شرائح — ولّد أولاً ⚠️',
+sumL:'ملخص',insL:'رؤى',tocL:'الفهرس',appliedL:'طُبّق ✅',understoodL:'جرّب: «جدول من النص» أو «شرائح من المستند»'}};
+let lang='en';
+const t=k=>(T[lang]&&T[lang][k])||T.en[k]||k;
+function setLang(v){lang=v;document.documentElement.lang=v;document.documentElement.dir=(v==='ar')?'rtl':'ltr';document.getElementById('langSel').value=v;
+document.querySelectorAll('[data-i]').forEach(e=>{e.textContent=t(e.dataset.i);});
+document.querySelectorAll('[data-i-ph]').forEach(e=>{e.placeholder=t(e.dataset.iPh);});
+buildBlockBar();renderDocs();renderTmpl();renderAll();renderDonate();}
+function toast(m){let d=document.getElementById('toast');d.textContent=m;d.style.display='block';clearTimeout(d._h);d._h=setTimeout(()=>d.style.display='none',2200);}
+function copyTxt(x){try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(x);}catch(e){}toast(t('copied'));}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function uid(){return 'B'+Date.now().toString(36).toUpperCase()+Math.floor(Math.random()*99);}
+let DOCS=[],DI=0,UNDO=[],FOCUS={kind:'text',id:null},SELSH={};
+function doc(){return DOCS[DI];}
+function save(){try{localStorage.setItem('bo_docs',JSON.stringify(DOCS));localStorage.setItem('bo_di',DI);}catch(e){}
+document.getElementById('stSaved').textContent='✓ '+t('savedL');updateInfo();}
+let saveT=null;function autoSave(){clearTimeout(saveT);saveT=setTimeout(save,700);}
+function snap(){try{UNDO.push(JSON.stringify({d:doc(),i:DI}));}catch(e){}if(UNDO.length>30)UNDO.shift();}
+function undo(){const s=UNDO.pop();if(!s)return;try{const o=JSON.parse(s);const ix=DOCS.findIndex(d=>d.id===o.d.id);if(ix>=0)DOCS[ix]=o.d;DI=Math.min(o.i,DOCS.length-1);renderAll();save();}catch(e){}}
+function blankDoc(){return {id:uid(),title:'Untitled',blocks:[],seq:{sheet:0}};}
+function newDoc(){snap();const d=blankDoc();DOCS.unshift(d);DI=0;renderAll();save();}
+function renderDocs(){document.getElementById('docList').innerHTML=DOCS.map((d,i)=>`<div class="docitem${i===DI?' on':''}" onclick="goDoc(${i})"><b>${esc(d.title||'Untitled').slice(0,26)}</b><br><small>${d.blocks.length} ${t('blocksL')}</small></div>`).join('');}
+function goDoc(i){syncText();DI=Math.max(0,Math.min(i,DOCS.length-1));renderAll();save();}
+function renderTmpl(){const T2=[['tmplReport','📊'],['tmplBudget','💰'],['tmplPitch','📽️']];document.getElementById('tmplList').innerHTML=T2.map(x=>`<div class="docitem" onclick="useTmpl('${x[0]}')"><b>${t(x[0])}</b></div>`).join('');}
+function mkText(html){return {id:uid(),type:'text',html:html||'<p><br></p>'};}
+function mkSheet(){doc().seq.sheet++;const n='Sheet'+doc().seq.sheet;return {id:uid(),type:'sheet',name:n,data:{},sel:{r:1,c:0}};}
+function mkChart(){const sh=doc().blocks.find(b=>b.type==='sheet');return {id:uid(),type:'chart',src:sh?sh.id:'',range:'A1:B5',ctype:'bar'};}
+function mkSlide(title,bullets){return {id:uid(),type:'slide',title:title||'Slide',bullets:bullets||[],notes:''};}
+function useTmpl(k){
+snap();const d=blankDoc();
+if(k==='tmplReport'){d.title=t('tmplReport');
+d.blocks.push(mkText('<h2>'+t('tmplReport')+'</h2><p>Summary with live numbers like {{Sheet1!B4}}.</p>'));
+const s=mkSheet();s.data={'1,0':{v:'Item'},'1,1':{v:'Amount'},'2,0':{v:'Revenue'},'2,1':{v:12000},'3,0':{v:'Costs'},'3,1':{v:7500},'4,0':{v:'Profit'},'4,1':{v:null,f:'=B2-B3'}};d.blocks.push(s);
+d.blocks.push({id:uid(),type:'chart',src:s.id,range:'A2:B3',ctype:'bar'});
+d.blocks.push(mkSlide('Results',['Revenue beat plan','Costs controlled']));}
+else if(k==='tmplBudget'){d.title=t('tmplBudget');
+const s=mkSheet();s.data={'1,0':{v:'Month'},'1,1':{v:'Budget'},'1,2':{v:'Actual'},'2,0':{v:'Jan'},'2,1':{v:5000},'2,2':{v:4800},'3,0':{v:'Feb'},'3,1':{v:5000},'3,2':{v:5300},'4,0':{v:'Total'},'4,1':{v:null,f:'=SUM(B2:B3)'},'4,2':{v:null,f:'=SUM(C2:C3)'}};d.blocks.push(s);
+d.blocks.push(mkText('<p>Budget vs actual. Total budget: {{'+s.name+'!B4}}, actual: {{'+s.name+'!C4}}.</p>'));}
+else{d.title=t('tmplPitch');
+d.blocks.push(mkSlide('The Problem',['Pain point one','Pain point two']));
+d.blocks.push(mkSlide('The Solution',['Our answer','Why now']));d.blocks.push(mkSlide('Ask',['Join us']));}
+DOCS.unshift(d);DI=0;renderAll();save();
+}
+function buildBlockBar(){document.getElementById('blockbar').innerHTML=`<button onclick="addBlock('text')">${t('addText')}</button><button onclick="addBlock('sheet')">${t('addSheet')}</button><button onclick="addBlock('chart')">${t('addChart')}</button><button onclick="addBlock('slide')">${t('addSlide')}</button>`;}
+function addBlock(kind){snap();
+let b=kind==='text'?mkText():kind==='sheet'?mkSheet():kind==='chart'?mkChart():mkSlide('New slide',[]);
+doc().blocks.push(b);renderAll();save();focusBlock(b.id);}
+function delBlock(id){snap();const d=doc();d.blocks=d.blocks.filter(b=>b.id!==id);renderAll();save();}
+function moveBlock(id,dir){const d=doc().blocks,i=d.findIndex(b=>b.id===id),j=i+dir;if(i<0||j<0||j>=d.length)return;snap();const [x]=d.splice(i,1);d.splice(j,0,x);renderAll();save();}
+function focusBlock(id){FOCUS.id=id;const b=doc().blocks.find(x=>x.id===id);FOCUS.kind=b?b.type:'text';renderCtx();}
+function syncText(){document.querySelectorAll('#canvas .txtedit').forEach(el=>{const b=doc().blocks.find(x=>x.id===el.dataset.id);if(b&&b.type==='text'&&b.html!==el.innerHTML){b.html=el.innerHTML;}});}
+function cn(c){let s='';c++;do{c--;s=String.fromCharCode(65+(c%26))+s;c=Math.floor(c/26);}while(c>0);return s;}
+function tokenize(s){
+const tk=[];let i=0;
+while(i<s.length){const c=s[i];
+if(/\s/.test(c)){i++;continue;}
+if(c==='"'){let j=i+1,str='';while(j<s.length&&s[j]!=='"'){if(s[j]==='\\'&&j+1<s.length){str+=s[j+1];j+=2;}else{str+=s[j];j++;}}if(j>=s.length)throw{e:'#VALUE!'};tk.push({t:'str',v:str});i=j+1;continue;}
+if(/[0-9.]/.test(c)){const m=s.slice(i).match(/^\d+(\.\d+)?([eE][+-]?\d+)?/);if(!m||m[0]==='.')throw{e:'#VALUE!'};tk.push({t:'num',v:parseFloat(m[0])});i+=m[0].length;continue;}
+if(/[A-Za-z_.]/.test(c)){const m=s.slice(i).match(/^[A-Za-z_][A-Za-z0-9_.]*/)[0];const up=m.toUpperCase();
+if(up==='TRUE'||up==='FALSE'){tk.push({t:'bool',v:up==='TRUE'});i+=m.length;continue;}
+const cm=m.match(/^([A-Za-z]+)([0-9]+)$/);
+if(cm){tk.push({t:'cell',c:cm[1].toUpperCase(),r:+cm[2]});i+=m.length;continue;}
+tk.push({t:'id',v:up});i+=m.length;continue;}
+const two=s.substr(i,2);
+if(two==='<='||two==='>='||two==='<>' ){tk.push({t:'op',v:two});i+=2;continue;}
+if('+-*/^&=<>,()%:'.indexOf(c)>=0){tk.push({t:(c===':'?'colon':(c==='('||c===')'||c===','?'p':(c==='%'?'pct':'op'))),v:c});i++;continue;}
+throw{e:'#NAME?'};}
+return tk;
+}
+function parse(f){
+const tk=tokenize(f.charAt(0)==='='?f.slice(1):f);let p=0;
+const peek=()=>tk[p],next=()=>tk[p++];
+function expr(){return comp();}
+function comp(){let l=concat();while(peek()&&peek().t==='op'&&['=','<','>','<=','>=','<>'].indexOf(peek().v)>=0){const o=next().v;const r=concat();l={t:'bin',o,l,r};}return l;}
+function concat(){let l=add();while(peek()&&peek().t==='op'&&peek().v==='&'){next();const r=add();l={t:'bin',o:'&',l,r};}return l;}
+function add(){let l=mul();while(peek()&&peek().t==='op'&&(peek().v==='+'||peek().v==='-')){const o=next().v;const r=mul();l={t:'bin',o,l,r};}return l;}
+function mul(){let l=pow();while(peek()&&peek().t==='op'&&(peek().v==='*'||peek().v==='/')){const o=next().v;const r=pow();l={t:'bin',o,l,r};}return l;}
+function pow(){let l=un();if(peek()&&peek().t==='op'&&peek().v==='^'){next();const r=pow();l={t:'bin',o:'^',l,r};}return l;}
+function un(){if(peek()&&peek().t==='op'&&(peek().v==='-'||peek().v==='+')){const o=next().v;return {t:'un',o,v:un()};}return post();}
+function post(){let l=prim();while(peek()&&peek().t==='pct'){next();l={t:'pct',v:l};}return l;}
+function prim(){
+const a=next();if(!a)throw{e:'#VALUE!'};
+if(a.t==='num'||a.t==='str'||a.t==='bool')return {t:'lit',v:a.v};
+if(a.t==='cell'){if(peek()&&peek().t==='colon'){next();const c2=next();if(!c2||c2.t!=='cell')throw{e:'#REF!'};return {t:'range',c1:a,c2:c2};}return {t:'cell',c:a};}
+if(a.t==='id'){if(peek()&&peek().v==='('){next();const args=[];if(!(peek()&&peek().v===')')){while(true){args.push(expr());if(peek()&&peek().v===','){next();continue;}break;}}if(!peek()||peek().v!==')')throw{e:'#VALUE!'};next();return {t:'fn',n:a.v,args};}throw{e:'#NAME?'};}
+if(a.v==='('){const e=expr();const c=next();if(!c||c.v!==')')throw{e:'#VALUE!'};return e;}
+throw{e:'#VALUE!'};
+}
+const e=expr();if(p<tk.length)throw{e:'#VALUE!'};return e;
+}
+function isErr(x){return x&&typeof x==='object'&&x.e;}
+function toNum(x){if(isErr(x))throw x;if(typeof x==='boolean')return x?1:0;if(typeof x==='number')return x;if(typeof x==='string'){if(x.trim()==='')throw{e:'#VALUE!'};const n=Number(x);if(isNaN(n))throw{e:'#VALUE!'};return n;}throw{e:'#VALUE!'};}
+function toStr(x){if(isErr(x))throw x;if(typeof x==='boolean')return x?'TRUE':'FALSE';if(x==null)return '';return String(x);}
+function toBool(x){if(isErr(x))throw x;if(typeof x==='boolean')return x;if(typeof x==='number')return x!==0;if(typeof x==='string')return x.length>0;return !!x;}
+function flatX(a){const o=[];(function f(x){if(Array.isArray(x))x.forEach(f);else if(x&&typeof x==='object'&&'v' in x)o.push(x);else o.push({v:x,blank:false});})(a);return o;}
+function cmpX(a,b){if(typeof a==='number'&&typeof b==='number')return a-b;const s1=String(a).toLowerCase(),s2=String(b).toLowerCase();return s1<s2?-1:s1>s2?1:0;}
+function matchX(v,crit){crit=String(crit);const m=crit.match(/^(<=|>=|<>|=|<|>)(.*)$/);
+if(m){const op=m[1],rhs=m[2];
+if(op==='=')return String(v).toLowerCase()===rhs.toLowerCase();
+if(op==='<>')return String(v).toLowerCase()!==rhs.toLowerCase();
+try{const a=toNum(v),b=toNum(rhs);if(op==='<')return a<b;if(op==='>')return a>b;if(op==='<=')return a<=b;return a>=b;}catch(e){return false;}}
+if(/[*?]/.test(crit)){try{const re=new RegExp('^'+crit.replace(/[.+^${}()|[\]\\]/g,'\\$&').replace(/\*/g,'.*').replace(/\?/g,'.')+'$','i');return re.test(String(v));}catch(e){return false;}}
+const n1=Number(v),n2=Number(crit);if(!isNaN(n1)&&!isNaN(n2)&&crit.trim()!=='')return n1===n2;
+return String(v).toLowerCase()===crit.toLowerCase();}
+function sheetOf(b,stack){return {b,stack};}
+function evCell(b,r,c,stack){
+const key=b.id+','+r+','+c;
+if(stack.has(key))throw{e:'#CIRC!'};
+const cell=b.data[r+','+c];
+if(!cell)return {v:'',blank:true};
+if(cell.f!=null){stack.add(key);try{const v=evx(parse(cell.f),{b,stack});stack.delete(key);return {v,blank:false};}catch(e){stack.delete(key);throw e;}}
+if(cell.v==null||cell.v==='')return {v:'',blank:true};
+return {v:cell.v,blank:false};
+}
+function evRange(b,c1,c2){
+const p1=addr2rc(c1.c+c1.r),p2=addr2rc(c2.c+c2.r);
+if(!p1||!p2)throw{e:'#REF!'};
+const rows=[];
+for(let r=Math.min(p1.r,p2.r);r<=Math.max(p1.r,p2.r);r++){const row=[];for(let c=Math.min(p1.c,p2.c);c<=Math.max(p1.c,p2.c);c++)row.push(evCell(b,r,c,new Set()));rows.push(row);}
+return rows;
+}
+function addr2rc(a){const m=String(a||'').toUpperCase().match(/^([A-Z]+)(\d+)$/);if(!m)return null;
+let c=0;for(const ch of m[1])c=c*26+(ch.charCodeAt(0)-64);c--;const r=+m[2];
+if(c<0||c>=8||r<1||r>60)return null;return {r,c};}
+function evx(n,ctx){
+if(!n)throw{e:'#VALUE!'};
+if(n.t==='lit')return n.v;
+if(n.t==='pct')return toNum(evx(n.v,ctx))/100;
+if(n.t==='un'){const v=toNum(evx(n.v,ctx));return n.o==='-'?-v:v;}
+if(n.t==='cell'){const p=addr2rc(n.c.c+n.c.r);if(!p)throw{e:'#REF!'};const g=evCell(ctx.b,p.r,p.c,ctx.stack);if(g.blank)return 0;return g.v;}
+if(n.t==='range')return evRange(ctx.b,n.c1,n.c2);
+if(n.t==='bin'){
+const l=evx(n.l,ctx),r=evx(n.r,ctx),o=n.o;
+if(o==='&')return toStr(l)+toStr(r);
+if(['=','<','>','<=','>=','<>'].includes(o)){const c=cmpX(l,r);return o==='='?c===0:o==='<'?c<0:o==='>'?c>0:o==='<='?c<=0:o==='>='?c>=0:c!==0;}
+const a=toNum(l),b=toNum(r);
+if(o==='+')return a+b;if(o==='-')return a-b;if(o==='*')return a*b;
+if(o==='/'){if(b===0)throw{e:'#DIV/0!'};return a/b;}
+if(o==='^')return Math.pow(a,b);}
+if(n.t==='fn'){
+if(n.n==='IF'){const c=toBool(evArgX(n.args[0],ctx));return c?evArgX(n.args[1],ctx):(n.args.length>2?evArgX(n.args[2],ctx):false);}
+if(n.n==='IFERROR'){try{return evArgX(n.args[0],ctx);}catch(e){return evArgX(n.args[1],ctx);}}
+return callFx(n.n,n.args.map(a=>evArgX(a,ctx)),ctx);}
+throw{e:'#VALUE!'};
+}
+function evArgX(a,ctx){
+if(!a)throw{e:'#VALUE!'};
+if(a.t==='range'){const rr=evRange(ctx.b,a.c1,a.c2);return rr.map(row=>row.map(c=>c));}
+return evx(a,ctx);
+}
+function nums(a){return flatX(a).filter(x=>!x.blank&&typeof x.v==='number').map(x=>x.v);}
+const FX={
+SUM:a=>nums(a).reduce((s,x)=>s+x,0),
+AVERAGE:a=>{const f=nums(a);if(!f.length)throw{e:'#DIV/0!'};return f.reduce((s,x)=>s+x,0)/f.length;},
+MIN:a=>{const f=nums(a);return f.length?Math.min(...f):0;},
+MAX:a=>{const f=nums(a);return f.length?Math.max(...f):0;},
+COUNT:a=>flatX(a).filter(x=>!x.blank&&typeof x.v==='number').length,
+COUNTA:a=>flatX(a).filter(x=>!x.blank&&String(x.v)!=='').length,
+SUMIF:(a,ctx)=>{const R=Array.isArray(a[0])?a[0].flat().map(c=>c.v!==undefined?c.v:c):[a[0]];const S=a[1]!==undefined?(Array.isArray(a[1])?a[1].flat().map(c=>c.v!==undefined?c.v:c):[a[1]]):R;let s=0;R.forEach((v,i)=>{let m=false;try{m=matchX(v,a[1]!==undefined&&a.length>2?a[1]:a[1]);}catch(e){}if(m){const sv=S[i];s+=typeof sv==='number'?sv:0;}});return s;},
+COUNTIF:(a,ctx)=>{const R=Array.isArray(a[0])?a[0].flat().map(c=>c.v!==undefined?c.v:c):[a[0]];return R.filter(v=>{try{return matchX(v,a[1]);}catch(e){return false;}}).length;},
+IF:a=>toBool(a[0])?a[1]:a[2],AND:a=>a.every(toBool),OR:a=>a.some(toBool),NOT:a=>!toBool(a[0]),
+CONCAT:a=>a.map(toStr).join(''),
+UPPER:a=>toStr(a[0]).toUpperCase(),LOWER:a=>toStr(a[0]).toLowerCase(),
+LEN:a=>toStr(a[0]).length,TRIM:a=>toStr(a[0]).trim(),
+LEFT:(a,ctx)=>{const s=toStr(a[0]);return s.slice(0,a[1]==null?1:toNum(a[1]));},
+RIGHT:(a,ctx)=>{const s=toStr(a[0]);const n=a[1]==null?1:toNum(a[1]);return s.slice(Math.max(0,s.length-n));},
+MID:(a,ctx)=>toStr(a[0]).substr(toNum(a[1])-1,toNum(a[2])),
+ABS:a=>Math.abs(toNum(a[0])),INT:a=>Math.floor(toNum(a[0])),
+ROUND:(a,ctx)=>{const n=toNum(a[0]),d=a[1]==null?0:toNum(a[1]);const f=Math.pow(10,d);return Math.round(n*f)/f;},
+SQRT:a=>{const n=toNum(a[0]);if(n<0)throw{e:'#VALUE!'};return Math.sqrt(n);},
+POWER:(a,ctx)=>Math.pow(toNum(a[0]),toNum(a[1])),
+MOD:(a,ctx)=>{const b=toNum(a[1]);if(b===0)throw{e:'#DIV/0!'};return toNum(a[0])%b;},
+TODAY:()=>'2026-10-13',NOW:()=>'2026-10-13 12:00',TRUE:()=>true,FALSE:()=>false
+};
+function callFx(n,args,ctx){
+if(FX[n]){try{return FX[n](args,ctx);}catch(e){if(e&&e.e)throw e;throw{e:'#VALUE!'};}}
+throw{e:'#NAME?'};
+}
+function dispV(v){if(v==null||v==='')return '';if(typeof v==='number'){if(!isFinite(v))return '#DIV/0!';return String(Math.round(v*1e10)/1e10);}return String(v);}
+function tx(c,v){const ed=document.querySelector('#canvas .txtedit:focus');const t2=document.activeElement&&document.activeElement.classList&&document.activeElement.classList.contains('txtedit')?document.activeElement:null;
+try{document.execCommand(c,false,v==null?null:v);}catch(e){}autoSave();}
+function fxIns(s){const f=document.getElementById('fxBar');f.value=(f.value||'')+s;f.focus();}
+function sheetById(id){return doc().blocks.find(b=>b.id===id&&b.type==='sheet');}
+function renderAll(){
+const cv=document.getElementById('canvas');
+cv.innerHTML=doc().blocks.map(b=>{
+if(b.type==='text')return `<div class="block${FOCUS.id===b.id?' sel':''}" data-id="${b.id}"><div class="bhead"><span class="kind">📝 ${b.id.slice(0,6)}</span><span class="sp"></span><button onclick="event.stopPropagation();moveBlock('${b.id}',-1)">↑</button><button onclick="event.stopPropagation();moveBlock('${b.id}',1)">↓</button><button onclick="event.stopPropagation();insBind('${b.id}')">🔗</button><button onclick="event.stopPropagation();delBlock('${b.id}')">✕</button></div><div class="bbody"><div class="txtedit" data-id="${b.id}" contenteditable="true">${b.html}</div><div class="bindbar" id="bind-${b.id}"></div></div></div>`;
+if(b.type==='sheet'){const sel=b.sel||{r:1,c:0};let g='<table class="mini"><tr><th></th>';
+for(let c=0;c<8;c++)g+=`<th>${cn(c)}</th>`;g+='</tr>';
+for(let r=1;r<=20;r++){g+=`<tr><th>${r}</th>`;
+for(let c=0;c<8;c++){let v='';const cell=b.data[r+','+c];
+if(cell){if(cell.f!=null){try{v=evx(parse(cell.f),{b,stack:new Set()});}catch(e){v=(e&&e.e)||'#ERR!';}}else v=cell.v==null?'':cell.v;}
+const s2=r===sel.r&&c===sel.c;
+g+=`<td data-b="${b.id}" data-r="${r}" data-c="${c}" class="${s2?'anchor':''}"><span class="cv">${esc(v)}</span></td>`;}
+g+='</tr>';}
+g+='</table>';
+return `<div class="block${FOCUS.id===b.id?' sel':''}" data-id="${b.id}"><div class="bhead"><span class="kind">📊 ${b.name}</span><span class="sp"></span><button onclick="event.stopPropagation();moveBlock('${b.id}',-1)">↑</button><button onclick="event.stopPropagation();moveBlock('${b.id}',1)">↓</button><button onclick="event.stopPropagation();delBlock('${b.id}')">✕</button></div><div class="bbody">${g}</div></div>`;}
+if(b.type==='chart')return `<div class="block${FOCUS.id===b.id?' sel':''}" data-id="${b.id}"><div class="bhead"><span class="kind">📈 ${b.range||''}</span><span class="sp"></span><button onclick="event.stopPropagation();moveBlock('${b.id}',-1)">↑</button><button onclick="event.stopPropagation();moveBlock('${b.id}',1)">↓</button><button onclick="event.stopPropagation();delBlock('${b.id}')">✕</button></div><div class="bbody"><canvas class="chart" id="ch-${b.id}" width="520" height="260"></canvas><div class="row"><select onchange="chartType('${b.id}',this.value)"><option value="bar">Bar</option><option value="line">Line</option><option value="pie">Pie</option></select><input id="chrg-${b.id}" value="${b.range||'A1:B5'}" style="max-width:130px;direction:ltr"><select onchange="chartSrc('${b.id}',this.value)">${doc().blocks.filter(x=>x.type==='sheet').map(s=>`<option${s.id===b.src?' selected':''}>${s.name}</option>`).join('')}</select></div></div></div>`;
+if(b.type==='slide')return `<div class="block${FOCUS.id===b.id?' sel':''}" data-id="${b.id}"><div class="bhead"><span class="kind">📽️ ${esc(b.title).slice(0,30)}</span><span class="sp"></span><button onclick="event.stopPropagation();moveBlock('${b.id}',-1)">↑</button><button onclick="event.stopPropagation();moveBlock('${b.id}',1)">↓</button><button onclick="event.stopPropagation();delBlock('${b.id}')">✕</button></div><div class="bbody"><div class="slidecard"><h2>${esc(b.title)}</h2><ul>${(b.bullets||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div></div>`;
+return '';}).join('');
+bindAll();syncAll();updateInfo();
+document.getElementById('docTitle').value=doc().title||'Untitled';
+}
+function bindAll(){
+document.querySelectorAll('#canvas .block').forEach(el=>{
+el.addEventListener('click',e=>{
+if(e.target.closest('button,input,select,canvas'))return;
+focusBlock(el.dataset.id);
+if(e.target.closest('td')){const td=e.target.closest('td');sheetSel(el.dataset.id,+td.dataset.r,+td.dataset.c);}
+});});
+document.querySelectorAll('#canvas .txtedit').forEach(el=>{
+el.addEventListener('focus',()=>focusBlock(el.dataset.id));
+el.addEventListener('input',()=>{const b=doc().blocks.find(x=>x.id===el.dataset.id);if(b){b.html=el.innerHTML;autoSave();clearTimeout(window._sbt);window._sbt=setTimeout(syncAll,400);}});});
+}
+function sheetSel(bid,r,c){const b=sheetById(bid);if(!b)return;b.sel={r,c};
+const cell=b.data[r+','+c];
+document.getElementById('fxName').textContent=b.name+'!'+cn(c)+r;
+document.getElementById('fxBar').value=cell?(cell.f!=null?cell.f:(cell.v==null?'':cell.v)):'';
+renderAll();
+const f=document.getElementById('fxBar');if(f)f.focus();
+}
+function commitFx(){
+const m=document.getElementById('fxName').textContent.split('!');
+if(m.length<2)return;
+const b=doc().blocks.find(x=>x.type==='sheet'&&x.name===m[0]);if(!b)return;
+const p=addr2rc(m[1]);if(!p)return;
+const raw=document.getElementById('fxBar').value;
+if(raw==null||raw===''){delete b.data[p.r+','+p.c];}
+else if(raw.charAt(0)==='=')b.data[p.r+','+p.c]={v:null,f:raw};
+else{const n=Number(raw);b.data[p.r+','+p.c]={v:(raw.trim()!==''&&!isNaN(n))?n:String(raw),f:null};}
+renderAll();save();
+}
+function resolveBind(b){
+return (b.html||'').replace(/\{\{\s*([A-Za-z0-9_]+)!([A-Za-z]+\d+)\s*\}\}/g,(m,sn,cell)=>{
+const sh=doc().blocks.find(x=>x.type==='sheet'&&x.name===sn);if(!sh)return m;
+const p=addr2rc(cell);if(!p)return m;
+try{const g=evCell(sh,p.r,p.c,new Set());return esc(dispV(g.blank?0:g.v));}catch(e){return (e&&e.e)||'#ERR!';}
+});
+}
+function dispV(v){if(v==null||v==='')return '';if(typeof v==='number')return String(Math.round(v*1e10)/1e10);return String(v);}
+function syncAll(){
+doc().blocks.forEach(b=>{if(b.type!=='text')return;
+const el=document.getElementById('bind-'+b.id);if(!el)return;
+const refs=[...b.html.matchAll(/\{\{\s*([A-Za-z0-9_]+)!([A-Za-z]+\d+)\s*\}\}/g)];
+if(!refs.length){el.innerHTML='';return;}
+el.innerHTML='🔗 '+refs.map(m=>{const sn=m[1],cell=m[2];
+const sh=doc().blocks.find(x=>x.type==='sheet'&&x.name===sn);if(!sh)return esc(m[0])+' = ?';
+const p=addr2rc(cell);if(!p)return esc(m[0])+' = ?';
+try{const g=evCell(sh,p.r,p.c,new Set());return esc(sn+'!'+cell)+' = <b>'+esc(dispV(g.blank?0:g.v))+'</b>';}catch(e){return esc(m[0])+' = '+((e&&e.e)||'#ERR!');}}).join(' · ');
+});
+doc().blocks.forEach(b=>{if(b.type==='chart')drawChartBlock(b);});
+document.getElementById('stSync').textContent='⚡ '+t('syncedL');
+}
+function chartVals(b){
+const sh=sheetById(b.src);if(!sh)return {labels:[],series:[]};
+const m=String(b.range||'A1:B4').toUpperCase().match(/^([A-Z]+\d+):([A-Z]+\d+)$/);
+if(!m)return {labels:[],series:[]};
+const p1=addr2rc(m[1]),p2=addr2rc(m[2]);if(!p1||!p2)return {labels:[],series:[]};
+const r1=Math.min(p1.r,p2.r),r2=Math.max(p1.r,p2.r),c1=Math.min(p1.c,p2.c),c2=Math.max(p1.c,p2.c);
+const labels=[],s0=[];
+for(let r=r1;r<=r2;r++){let lv='';const cell=sh.data[r+','+c1];
+if(cell){if(cell.f!=null){try{lv=evx(parse(cell.f),{b:sh,stack:new Set()});}catch(e){lv='';}}else lv=cell.v==null?'':cell.v;}
+labels.push(String(lv));
+let nv=0;if(c2>c1){const c2cell=sh.data[r+','+(c1+1)];if(c2cell){if(c2cell.f!=null){try{nv=evx(parse(c2cell.f),{b:sh,stack:new Set()});}catch(e){nv=0;}}else nv=c2cell.v==null?0:c2cell.v;}}
+s0.push(typeof nv==='number'?nv:parseFloat(nv)||0);}
+return {labels,series:[s0]};
+}
+function drawChartBlock(b){
+const cv=document.getElementById('ch-'+b.id);if(!cv)return;
+const ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+ctx.clearRect(0,0,W,H);ctx.fillStyle='#0b0e17';ctx.fillRect(0,0,W,H);
+const {labels,series}=chartVals(b);
+if(!series.length||!series[0].length){ctx.fillStyle='#8b98b8';ctx.fillText('no data',20,20);return;}
+const ty=b.ctype||'bar',cols=['#34d399','#60a5fa','#fbbf24'];
+if(ty==='pie'){const vals=series[0],tot=vals.reduce((a,x)=>a+x,0)||1;let a0=-Math.PI/2;
+vals.forEach((v,i)=>{const a1=a0+v/tot*Math.PI*2;ctx.beginPath();ctx.moveTo(W/2,H/2);ctx.arc(W/2,H/2,Math.min(W,H)/2-20,a0,a1);ctx.closePath();ctx.fillStyle=cols[i%3];ctx.fill();a0=a1;});return;}
+const all=series[0],mx=Math.max(...all,0),mn=Math.min(...all,0);
+const L=40,Y1=H-24,T=12,X0=L,X1=W-10;
+ctx.strokeStyle='#2a3557';ctx.beginPath();ctx.moveTo(X0,T);ctx.lineTo(X0,Y1);ctx.lineTo(X1,Y1);ctx.stroke();
+const n=labels.length,bw=(X1-X0)/Math.max(1,n);
+series[0].forEach((v,i)=>{ctx.fillStyle=cols[0];ctx.strokeStyle=cols[0];
+if(ty==='bar'){const hh=(v-mn)/((mx-mn)||1)*(Y1-T-8);const x=X0+i*bw+bw*0.2;ctx.fillRect(x,Y1-hh,bw*0.6,hh);}
+else{const x=X0+i*bw+bw/2,y=Y1-(v-mn)/((mx-mn)||1)*(Y1-T-8);if(i===0){ctx.beginPath();ctx.moveTo(x,y);}else ctx.lineTo(x,y);ctx.fillRect(x-2,y-2,4,4);}
+if(ty==='line')ctx.stroke();});
+ctx.fillStyle='#8b98b8';ctx.font='10px sans-serif';
+labels.forEach((l,i)=>{if(i%Math.ceil(n/6)===0)ctx.fillText(String(l).slice(0,10),X0+i*bw,H-8);});
+}
+function chartType(id,v){const b=doc().blocks.find(x=>x.id===id);if(b){b.ctype=v;drawChartBlock(b);autoSave();}}
+function chartSrc(id,name){const b=doc().blocks.find(x=>x.id===id);const s=doc().blocks.find(x=>x.type==='sheet'&&x.name===name);if(b&&s){b.src=s.id;drawChartBlock(b);autoSave();}}
+function chartFromSheet(id){const b=doc().blocks.find(x=>x.id===id);if(!b)return;addBlock('chart');const nb=doc().blocks[doc().blocks.length-1];nb.src=id;renderAll();save();}
+function insBind(){const b=doc().blocks.find(x=>x.id===FOCUS.id);if(!b||b.type!=='text')return;
+const sh=doc().blocks.find(x=>x.type==='sheet');if(!sh){toast(t('noSheets'));return;}
+const s2=sh.sel||{r:2,c:1};
+try{document.execCommand('insertText',false,'{{'+sh.name+'!'+cn(s2.c)+s2.r+'}}');}catch(e){}autoSave();}
+function renderCtx(){
+const m=document.getElementById('ctxMode'),tools=document.getElementById('ctxTools'),fx=document.getElementById('fxwrap');
+const b=doc().blocks.find(x=>x.id===FOCUS.id);
+const kind=b?b.type:'text';
+m.textContent=t('m'+kind[0].toUpperCase()+kind.slice(1));
+fx.classList.toggle('show',kind==='sheet');
+if(kind==='text')tools.innerHTML=`<button onclick="tx('bold')"><b>B</b></button><button onclick="tx('italic')"><i>I</i></button><button onclick="tx('underline')"><u>U</u></button><button onclick="tx('insertUnorderedList')">•☰</button><button onclick="tx('insertOrderedList')">1.☰</button><button onclick="tx('justifyLeft')">⇤</button><button onclick="tx('justifyCenter')">⇔</button><button onclick="tx('justifyRight')">⇥</button><button onclick="tx('formatBlock','h2')">H2</button><button onclick="tx('formatBlock','p')">¶</button><button onclick="tx('removeFormat')">Tx</button>`;
+else if(kind==='sheet')tools.innerHTML=`<button onclick="fxIns('SUM(')">∑</button><button onclick="fxIns('AVERAGE(')">avg</button><button onclick="fxIns('IF(')">IF</button><button onclick="chartFromSheet('${b?b.id:''}')">📈</button>`;
+else if(kind==='slide')tools.innerHTML=`<button onclick="startPresent()">▶</button><button onclick="addBlock('slide')">＋</button>`;
+else if(kind==='chart')tools.innerHTML=`<button onclick="renderAll()">↻</button><button onclick="startPresent()">▶</button>`;
+else tools.innerHTML='';
+}
+function updateInfo(){document.getElementById('stInfo').textContent=doc().blocks.length+' '+t('blocksL')+' · '+doc().blocks.filter(b=>b.type==='slide').length+' '+t('slidesL');}
+function extractNumbers(tx){
+const out=[];const re=/-?\d[\d,]*(?:\.\d+)?/g;let m;
+while((m=re.exec(tx))!==null){const v=parseFloat(m[0].replace(/,/g,''));if(!isNaN(v))out.push(v);}
+return out;
+}
+function sentsOf(tx){return (String(tx||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').match(/[^.!?]+[.!?]+["”)]?|\S[^.!?]*$/g)||[]).map(s=>s.trim()).filter(s=>s.length>10);}
+function parseOutline(text){
+const slides=[];let cur=null;
+String(text||'').split('\n').forEach(raw=>{
+const line=raw.trim();if(!line)return;
+if(line.charAt(0)==='#'){cur={title:line.replace(/^#+\s*/,'')||'Untitled',bullets:[]};slides.push(cur);return;}
+const bm=line.match(/^[-*•]\s+(.*)$/);
+if(bm){if(!cur){cur={title:'Untitled',bullets:[]};slides.push(cur);}cur.bullets.push(bm[1]);return;}
+if(!cur||cur.bullets.length){cur={title:line,bullets:[]};slides.push(cur);}else cur.bullets.push(line);
+});
+return slides;
+}
+function suggestLayout(sl){
+const n=(sl.bullets||[]).length;
+if(sl.img)return 'imageright';
+if(n>6)return 'twocol';
+if(n===0)return 'section';
+if(n===1&&(sl.bullets[0]||'').length<80)return 'quote';
+return 'bullets';
+}
+function expandNotes(sl){
+return (sl.bullets||[]).map((b,i)=>(i+1)+'. Say: "'+b+'" — Explain why it matters. Example: ... Takeaway: ...').join('\n');
+}
+function aiRun(){
+const q=document.getElementById('aiIn').value.trim();
+const box=document.getElementById('aiOut');
+if(!q){box.innerHTML=t('understoodL');return;}
+const low=q.toLowerCase();let done=false;let html='';
+const needTbl=/(table|tablo|جدول|spreadsheet|sheet)/.test(low);
+const needSlides=/(slide|slayt|شريحة|شرائح|presentation|sunum|عرض)/.test(low);
+const needSum=/(summar|özet|لخص|ملخص)/.test(low);
+const needRep=/(report|rapor|تقرير)/.test(low);
+const needChart=/(chart|grafik|رسم|مخطط)/.test(low);
+const txtBlocks=doc().blocks.filter(b=>b.type==='text');
+const sheets=doc().blocks.filter(b=>b.type==='sheet');
+const plainTxt=txtBlocks.map(b=>(b.html||'').replace(/<[^>]*>/g,' ')).join(' ');
+if(needTbl){
+const nums=extractNumbers(plainTxt).slice(0,24);
+if(nums.length>=2){snap();
+const s=mkSheet();const cols=Math.min(4,Math.ceil(Math.sqrt(nums.length)));
+nums.forEach((v,i)=>{const r=Math.floor(i/cols)+1,c=i%cols;s.data[r+','+c]={v};});
+const tr=Math.ceil(nums.length/cols);
+s.data[(tr+1)+',0']={v:'Total'};s.data[(tr+1)+',1']={v:null,f:'=SUM(B1:B'+tr+')'};
+doc().blocks.push(s);html+=`📊 sheet <b>${s.name}</b> (${nums.length} nums)<br>`;done=true;}
+}
+if(needSlides){
+const ss=sentsOf(plainTxt).slice(0,12);
+if(ss.length){snap();
+for(let i=0;i<ss.length;i+=4){const chunk=ss.slice(i,i+4);
+doc().blocks.push(mkSlide(chunk[0].slice(0,60),chunk.slice(1)));}
+html+=`📽️ ${Math.ceil(ss.length/4)} slides<br>`;done=true;}
+}
+if(needSum){
+const ss=sentsOf(plainTxt);
+const freq={};ss.join(' ').toLowerCase().match(/[a-z\u00c0-\u024f\u0370-\u03ff\u0400-\u04ff\u0600-\u06ff\w]+/g).forEach(w=>{freq[w]=(freq[w]||0)+1;});
+const scored=ss.map(s=>{let sc=0;(s.toLowerCase().match(/[a-z\u00c0-\u024f\u0370-\u03ff\u0400-\u04ff\u0600-\u06ff\w]+/g)||[]).forEach(w=>{sc+=freq[w]||0;});return {s,sc};}).sort((a,b)=>b.sc-a.sc);
+const top=scored.slice(0,3).map(x=>x.s);
+if(top.length){snap();doc().blocks.push({id:uid(),type:'text',html:'<p><b>'+t('sumL')+':</b> '+esc(top.join(' '))+'</p>'});html+=`📝 ${t('sumL')}<br>`;done=true;}
+}
+if(needRep&&sheets.length){
+const s=sheets[0];let tot=0,n=0,mx=-Infinity,mn=Infinity;
+Object.keys(s.data).forEach(k=>{const c=s.data[k];if(c&&(typeof c.v==='number')){tot+=c.v;n++;if(c.v>mx)mx=c.v;if(c.v<mn)mn=c.v;}});
+if(n){snap();const avg=tot/n;
+doc().blocks.push({id:uid(),type:'text',html:'<p><b>'+t('insL')+':</b> n='+n+', sum='+Math.round(tot*100)/100+', avg='+Math.round(avg*100)/100+', range=['+mn+'…'+mx+'].</p>'});html+=`📈 ${t('insL')}<br>`;done=true;}
+}
+if(needChart){
+const s=sheets[0];
+if(!s){html+=t('noSheets');}
+else{snap();const nb={id:uid(),type:'chart',src:s.id,range:'A1:B5',ctype:'bar'};doc().blocks.push(nb);html+=`📈 chart ← ${s.name}<br>`;done=true;}
+}
+if(!done)html=t('understoodL');
+box.innerHTML=html;renderAll();save();
+}
+function renderDonate(){
+document.getElementById('btcA').textContent=CONFIG.pay.btc;
+document.getElementById('usdtA').textContent=CONFIG.pay.usdt;
+}
+function loadAds(){const A=CONFIG.ads,el=document.getElementById('adFoot');if(!el)return;
+if(A.client){el.innerHTML='<ins class="adsbygoogle" style="display:block" data-ad-client="'+A.client+'" data-ad-slot="'+(A.slot||'')+'" data-ad-format="auto"></ins>';
+if(!document.querySelector('script[src*="adsbygoogle"]')){const s=document.createElement('script');s.async=true;s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='+A.client;s.crossOrigin='anonymous';document.head.appendChild(s);}try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}}
+else if(A.carbonServe){el.innerHTML='';const s=document.createElement('script');s.async=true;s.id='_carbonads_js';s.src='//cdn.carbonads.com/carbon.js?serve='+A.carbonServe+'&placement='+A.carbonPlacement;el.appendChild(s);}}
+let PI=0;
+function slidesArr(){return doc().blocks.filter(b=>b.type==='slide');}
+function startPresent(){syncText();const arr=slidesArr();if(!arr.length){toast(t('noSlides'));return;}PI=0;showP();document.getElementById('present').classList.add('show');}
+function showP(){
+const arr=slidesArr(),s=arr[PI];if(!s)return;
+document.getElementById('pslide').innerHTML=`<h1 style="font-size:34px;margin-bottom:14px">${esc(s.title)}</h1><ul style="margin-left:24px;line-height:2;font-size:19px">${(s.bullets||[]).map(b=>`<li>${esc(b)}</li>`).join('')}</ul>`;
+document.getElementById('pnum').textContent=(PI+1)+' / '+arr.length;
+}
+function pNext(e){if(e)e.stopPropagation();const arr=slidesArr();if(PI<arr.length-1){PI++;showP();}}
+document.addEventListener('keydown',e=>{
+const p=document.getElementById('present');
+if(p.classList.contains('show')){
+if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){const arr=slidesArr();if(PI<arr.length-1){PI++;showP();}e.preventDefault();}
+if(e.key==='ArrowLeft'&&PI>0){PI--;showP();}
+if(e.key==='Escape')p.classList.remove('show');}});
+function closeModal(){}
+function dlJSON(){syncText();const b=new Blob([JSON.stringify(doc())],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(doc().title||'baran-office')+'.baran.json';a.click();toast(t('dlDone'));}
+function impJSON(el){const f=el.files&&el.files[0];if(!f)return;const r=new FileReader();
+r.onload=()=>{try{const d=JSON.parse(r.result);if(d&&d.blocks){snap();DOCS.unshift({id:uid(),title:d.title||'Imported',blocks:d.blocks,seq:d.seq||{sheet:0}});DI=0;renderAll();save();toast(t('dlDone'));}}catch(e){}};r.readAsText(f);el.value='';}
+function dlHTML(){syncText();const css='.blk{border:1px solid #ccc;border-radius:8px;padding:14px;margin:12px auto;max-width:800px}table{border-collapse:collapse}td,th{border:1px solid #999;padding:5px 10px}';
+const h='<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+esc(doc().title)+'</title><style>'+css+'</style></head><body><h1>'+esc(doc().title)+'</h1>'+doc().blocks.map(b=>{
+if(b.type==='text')return '<div class="blk">'+b.html+'</div>';
+if(b.type==='slide')return '<div class="blk"><h2>'+esc(b.title)+'</h2><ul>'+(b.bullets||[]).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>';
+return '<div class="blk"><i>['+b.type+']</i></div>';}).join('')+'</body></html>';
+const a=document.createElement('a');const bl=new Blob([h],{type:'text/html'});a.href=URL.createObjectURL(bl);a.download='baran-office.html';a.click();toast(t('dlDone'));}
+function doPrint(){syncText();document.getElementById('printAll').innerHTML='<h1>'+esc(doc().title)+'</h1>'+doc().blocks.map(b=>{
+if(b.type==='text')return '<div class="pb">'+b.html+'</div>';
+if(b.type==='slide')return '<div class="pb"><h2>'+esc(b.title)+'</h2><ul>'+(b.bullets||[]).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>';
+return '';}).join('');window.print();}
+function toggleTheme(){document.body.classList.toggle('light');}
+function loadDocs(){
+try{const d=JSON.parse(localStorage.getItem('bo_docs'));if(d&&d.length){DOCS=d;DI=Math.min(+localStorage.getItem('bo_di')||0,d.length-1);return;}}catch(e){}
+DOCS=[blankDoc()];DI=0;
+}
+document.getElementById('fxBar').addEventListener('keydown',e=>{
+if(e.key==='Enter'){commitFx();e.stopPropagation();}
+if(e.key==='Escape'){renderAll();e.stopPropagation();}
+e.stopPropagation();});
+document.getElementById('docTitle').addEventListener('input',e=>{doc().title=e.target.value;autoSave();});
+loadDocs();setLang('en');loadAds();renderDonate();renderAll();
+</script>
+</body>
+</html>
