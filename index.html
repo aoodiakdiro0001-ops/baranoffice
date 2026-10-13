@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
+    <meta name="google-site-verification" content="sUdW_XpImN1GAPBLydgCJ1f4QelcRviwpb5r5rIQrlI" />
   <meta name="google-site-verification" content="hzAtUT71m9gGWaJD8PHKPJHSfUlujROArUR50j3CAAE" /><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Baran Office | Unified Smart Workspace — Docs, Sheets, Slides</title>
@@ -581,7 +582,8 @@ function dlJSON(){syncText();const b=new Blob([JSON.stringify(doc())],{type:'app
 function impJSON(el){const f=el.files&&el.files[0];if(!f)return;const r=new FileReader();
 r.onload=()=>{try{const d=JSON.parse(r.result);if(d&&d.blocks){snap();DOCS.unshift({id:uid(),title:d.title||'Imported',blocks:d.blocks,seq:d.seq||{sheet:0}});DI=0;renderAll();save();toast(t('dlDone'));}}catch(e){}};r.readAsText(f);el.value='';}
 function dlHTML(){syncText();const css='.blk{border:1px solid #ccc;border-radius:8px;padding:14px;margin:12px auto;max-width:800px}table{border-collapse:collapse}td,th{border:1px solid #999;padding:5px 10px}';
-const h='<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+esc(doc().title)+'</title><style>'+css+'</style></head><body><h1>'+esc(doc().title)+'</h1>'+doc().blocks.map(b=>{
+const h='<!DOCTYPE html><html><head>
+    <meta name="google-site-verification" content="sUdW_XpImN1GAPBLydgCJ1f4QelcRviwpb5r5rIQrlI" /><meta charset="utf-8"><title>'+esc(doc().title)+'</title><style>'+css+'</style></head><body><h1>'+esc(doc().title)+'</h1>'+doc().blocks.map(b=>{
 if(b.type==='text')return '<div class="blk">'+b.html+'</div>';
 if(b.type==='slide')return '<div class="blk"><h2>'+esc(b.title)+'</h2><ul>'+(b.bullets||[]).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>';
 return '<div class="blk"><i>['+b.type+']</i></div>';}).join('')+'</body></html>';
